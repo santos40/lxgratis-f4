@@ -66,7 +66,7 @@ const Users = () => {
                         {user.status}
                       </span>
                     </TableCell>
-                    <TableCell>{new Date(user.date).toLocaleDateString('pt-BR')}</TableCell>
+                    <TableCell>{new Date(user.joinDate).toLocaleDateString('pt-BR')}</TableCell>
                     <TableCell>
                       <Button variant="ghost" size="sm">Editar</Button>
                     </TableCell>
