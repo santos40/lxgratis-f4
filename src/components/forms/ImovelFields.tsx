@@ -2,7 +2,7 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UseFormReturn } from "react-hook-form";
-import { ImovelFormValues } from "@/types/forms";
+import { ListingFormValues } from "@/types/forms";
 
 const imovelTypes = [
   { value: "casa", label: "Casa" },
