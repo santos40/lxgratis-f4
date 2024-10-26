@@ -4,26 +4,31 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProductCard from "@/components/ProductCard";
 import { Settings, LogOut } from "lucide-react";
+import { Listing } from "@/types/listings";
+
+const mockUser = {
+  name: "João Silva",
+  email: "joao@example.com",
+  memberSince: "Janeiro 2023",
+  location: "São Paulo, SP",
+};
+
+const mockListings: Listing[] = [
+  {
+    id: "1",
+    title: "iPhone 13 Pro Max 256GB",
+    price: 5999.99,
+    location: "São Paulo, SP",
+    description: "iPhone em perfeito estado",
+    category: "outros",
+    createdAt: new Date().toISOString(),
+    userId: "1",
+    images: ["https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500"],
+  },
+  // Add more mock listings as needed
+];
 
 const Profile = () => {
-  const mockUser = {
-    name: "João Silva",
-    email: "joao@example.com",
-    memberSince: "Janeiro 2023",
-    location: "São Paulo, SP",
-  };
-
-  const mockListings = [
-    {
-      title: "iPhone 13 Pro Max 256GB",
-      price: 5999.99,
-      location: "São Paulo, SP",
-      date: "Hoje, 14:30",
-      imageUrl: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500",
-    },
-    // Add more mock listings as needed
-  ];
-
   return (
     <div className="min-h-screen bg-accent">
       <Navbar />
@@ -69,8 +74,8 @@ const Profile = () => {
               
               <TabsContent value="listings" className="mt-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {mockListings.map((listing, index) => (
-                    <ProductCard key={index} {...listing} />
+                  {mockListings.map((listing) => (
+                    <ProductCard key={listing.id} listing={listing} />
                   ))}
                 </div>
               </TabsContent>
