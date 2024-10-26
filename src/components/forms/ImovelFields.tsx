@@ -12,7 +12,7 @@ const imovelTypes = [
 ];
 
 interface ImovelFieldsProps {
-  form: UseFormReturn<ImovelFormValues>;
+  form: UseFormReturn<ListingFormValues>;
 }
 
 export const ImovelFields = ({ form }: ImovelFieldsProps) => {
@@ -50,7 +50,12 @@ export const ImovelFields = ({ form }: ImovelFieldsProps) => {
           <FormItem>
             <FormLabel>Área (m²)</FormLabel>
             <FormControl>
-              <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+              <Input 
+                type="number" 
+                {...field} 
+                onChange={e => field.onChange(Number(e.target.value))}
+                value={field.value || ''} 
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -64,7 +69,12 @@ export const ImovelFields = ({ form }: ImovelFieldsProps) => {
           <FormItem>
             <FormLabel>Quartos</FormLabel>
             <FormControl>
-              <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+              <Input 
+                type="number" 
+                {...field} 
+                onChange={e => field.onChange(Number(e.target.value))}
+                value={field.value || ''} 
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

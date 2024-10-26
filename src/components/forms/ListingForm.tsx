@@ -8,19 +8,13 @@ import { ImovelFields } from "./ImovelFields";
 import { VeiculoFields } from "./VeiculoFields";
 import { BaseListingFields } from "./BaseListingFields";
 import { CategorySelect } from "./CategorySelect";
-import { imovelSchema, veiculoSchema, outrosSchema, ListingFormValues } from "@/types/forms";
+import { listingSchema, ListingFormValues } from "@/types/forms";
 
 const ListingForm = () => {
   const [category, setCategory] = useState<ListingCategory>("outros");
 
   const form = useForm<ListingFormValues>({
-    resolver: zodResolver(
-      category === "imovel" 
-        ? imovelSchema 
-        : category === "veiculo" 
-          ? veiculoSchema 
-          : outrosSchema
-    ),
+    resolver: zodResolver(listingSchema),
     defaultValues: {
       category: "outros",
       title: "",

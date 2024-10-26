@@ -2,7 +2,7 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UseFormReturn } from "react-hook-form";
-import { VeiculoFormValues } from "@/types/forms";
+import { ListingFormValues } from "@/types/forms";
 
 const veiculoTypes = [
   { value: "carro", label: "Carro" },
@@ -22,7 +22,7 @@ const carBrands = [
 ];
 
 interface VeiculoFieldsProps {
-  form: UseFormReturn<VeiculoFormValues>;
+  form: UseFormReturn<ListingFormValues>;
 }
 
 export const VeiculoFields = ({ form }: VeiculoFieldsProps) => {
@@ -99,7 +99,12 @@ export const VeiculoFields = ({ form }: VeiculoFieldsProps) => {
           <FormItem>
             <FormLabel>Ano</FormLabel>
             <FormControl>
-              <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+              <Input 
+                type="number" 
+                {...field} 
+                onChange={e => field.onChange(Number(e.target.value))}
+                value={field.value || ''} 
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -113,7 +118,12 @@ export const VeiculoFields = ({ form }: VeiculoFieldsProps) => {
           <FormItem>
             <FormLabel>Quilometragem</FormLabel>
             <FormControl>
-              <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+              <Input 
+                type="number" 
+                {...field} 
+                onChange={e => field.onChange(Number(e.target.value))}
+                value={field.value || ''} 
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
