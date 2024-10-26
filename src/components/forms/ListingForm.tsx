@@ -16,35 +16,33 @@ import { BaseListingFields } from "./BaseListingFields";
 import { ImovelFields } from "./ImovelFields";
 import { VeiculoFields } from "./VeiculoFields";
 
+const baseSchema = {
+  title: z.string().min(1),
+  price: z.number().min(0),
+  description: z.string(),
+  location: z.string(),
+};
+
 const listingFormSchema = z.discriminatedUnion("category", [
   z.object({
+    ...baseSchema,
     category: z.literal("imovel"),
-    title: z.string().min(1),
-    price: z.number().min(0),
-    description: z.string(),
-    location: z.string(),
-    type: z.enum(["casa", "apartamento", "terreno", "chacara"]),
+    imovelType: z.enum(["casa", "apartamento", "terreno", "chacara"]),
     area: z.number(),
     bedrooms: z.number().optional(),
   }),
   z.object({
+    ...baseSchema,
     category: z.literal("veiculo"),
-    title: z.string().min(1),
-    price: z.number().min(0),
-    description: z.string(),
-    location: z.string(),
-    type: z.enum(["carro", "moto", "caminhao"]),
+    veiculoType: z.enum(["carro", "moto", "caminhao"]),
     brand: z.string(),
     model: z.string(),
     year: z.number(),
     mileage: z.number(),
   }),
   z.object({
+    ...baseSchema,
     category: z.literal("outros"),
-    title: z.string().min(1),
-    price: z.number().min(0),
-    description: z.string(),
-    location: z.string(),
   }),
 ]);
 
@@ -73,8 +71,14 @@ const ListingForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <Select
           onValueChange={(value: ListingCategory) => {
-            form.setValue("category", value as ListingCategory);
-            setCategory(value as ListingCategory);
+            form.reset({ 
+              category: value,
+              title: "",
+              price: 0,
+              description: "",
+              location: "",
+            });
+            setCategory(value);
           }}
           value={category}
         >

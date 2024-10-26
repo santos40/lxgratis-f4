@@ -2,10 +2,9 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UseFormReturn } from "react-hook-form";
-import { VeiculoType } from "@/types/listings";
 import { ListingFormValues } from "./ListingForm";
 
-const veiculoTypes: { value: VeiculoType; label: string }[] = [
+const veiculoTypes = [
   { value: "carro", label: "Carro" },
   { value: "moto", label: "Moto" },
   { value: "caminhao", label: "Caminhão" },
@@ -74,6 +73,20 @@ export const VeiculoFields = ({ form }: VeiculoFieldsProps) => {
                 ))}
               </SelectContent>
             </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="model"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Modelo</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
