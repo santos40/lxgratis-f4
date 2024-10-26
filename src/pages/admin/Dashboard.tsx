@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import AdminNavbar from "@/components/admin/AdminNavbar";
 
 const mockStats = [
   {
