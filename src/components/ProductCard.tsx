@@ -1,6 +1,6 @@
 import { Card } from "./ui/card";
 import { Heart } from "lucide-react";
-import { Listing } from "@/types/listings";
+import { Listing, ImovelListing, VeiculoListing } from "@/types/listings";
 
 interface ProductCardProps {
   listing: Listing;
@@ -9,19 +9,25 @@ interface ProductCardProps {
 const ProductCard = ({ listing }: ProductCardProps) => {
   const renderDetails = () => {
     if (listing.category === "imovel") {
+      const imovelListing = listing as ImovelListing;
       return (
         <div className="text-sm text-gray-500">
-          <p>{listing.area}m² • {listing.type}</p>
-          {listing.bedrooms && <p>{listing.bedrooms} quartos</p>}
+          {imovelListing.area && <p>{imovelListing.area}m² • {imovelListing.type}</p>}
+          {imovelListing.bedrooms && <p>{imovelListing.bedrooms} quartos</p>}
         </div>
       );
     }
     
     if (listing.category === "veiculo") {
+      const veiculoListing = listing as VeiculoListing;
       return (
         <div className="text-sm text-gray-500">
-          <p>{listing.brand} • {listing.model}</p>
-          <p>{listing.year} • {listing.mileage}km</p>
+          {veiculoListing.brand && veiculoListing.model && (
+            <p>{veiculoListing.brand} • {veiculoListing.model}</p>
+          )}
+          {veiculoListing.year && veiculoListing.mileage && (
+            <p>{veiculoListing.year} • {veiculoListing.mileage}km</p>
+          )}
         </div>
       );
     }
@@ -33,7 +39,7 @@ const ProductCard = ({ listing }: ProductCardProps) => {
     <Card className="group cursor-pointer overflow-hidden">
       <div className="relative aspect-square">
         <img
-          src={listing.images?.[0]}
+          src={listing.images[0]}
           alt={listing.title}
           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
         />

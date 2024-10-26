@@ -3,7 +3,7 @@ export type ListingCategory = 'imovel' | 'veiculo' | 'outros';
 export type ImovelType = 'casa' | 'apartamento' | 'terreno' | 'chacara';
 export type VeiculoType = 'carro' | 'moto' | 'caminhao';
 
-export interface BaseListing {
+interface BaseListing {
   id: string;
   title: string;
   price: number;
@@ -18,7 +18,7 @@ export interface BaseListing {
 export interface ImovelListing extends BaseListing {
   category: 'imovel';
   type: ImovelType;
-  area: number; // m²
+  area: number;
   bedrooms?: number;
   bathrooms?: number;
   garage?: number;
@@ -32,8 +32,12 @@ export interface VeiculoListing extends BaseListing {
   model: string;
   year: number;
   mileage: number;
-  fuel: 'gasolina' | 'etanol' | 'diesel' | 'eletrico' | 'hibrido';
-  transmission: 'manual' | 'automatico';
+  fuel?: 'gasolina' | 'etanol' | 'diesel' | 'eletrico' | 'hibrido';
+  transmission?: 'manual' | 'automatico';
 }
 
-export type Listing = ImovelListing | VeiculoListing | BaseListing;
+export interface OutrosListing extends BaseListing {
+  category: 'outros';
+}
+
+export type Listing = ImovelListing | VeiculoListing | OutrosListing;
