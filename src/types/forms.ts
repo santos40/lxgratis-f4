@@ -1,22 +1,22 @@
 import { z } from "zod";
+import { ImovelType, VeiculoType } from "./listings";
 
-const baseSchema = {
+const baseSchema = z.object({
   title: z.string().min(1),
   price: z.number().min(0),
   description: z.string(),
   location: z.string(),
-};
+  category: z.enum(["imovel", "veiculo", "outros"]),
+});
 
-export const imovelSchema = z.object({
-  ...baseSchema,
+export const imovelSchema = baseSchema.extend({
   category: z.literal("imovel"),
   imovelType: z.enum(["casa", "apartamento", "terreno", "chacara"]),
   area: z.number().min(1),
   bedrooms: z.number().optional(),
 });
 
-export const veiculoSchema = z.object({
-  ...baseSchema,
+export const veiculoSchema = baseSchema.extend({
   category: z.literal("veiculo"),
   veiculoType: z.enum(["carro", "moto", "caminhao"]),
   brand: z.string(),
@@ -25,8 +25,7 @@ export const veiculoSchema = z.object({
   mileage: z.number(),
 });
 
-export const outrosSchema = z.object({
-  ...baseSchema,
+export const outrosSchema = baseSchema.extend({
   category: z.literal("outros"),
 });
 

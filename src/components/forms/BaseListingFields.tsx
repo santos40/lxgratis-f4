@@ -34,8 +34,8 @@ export const BaseListingFields = ({ form }: BaseListingFieldsProps) => {
             <FormControl>
               <Input 
                 type="number" 
-                {...field} 
-                onChange={(e) => field.onChange(Number(e.target.value))}
+                {...field}
+                onChange={e => field.onChange(Number(e.target.value))}
                 value={field.value || ''} 
               />
             </FormControl>

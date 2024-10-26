@@ -3,8 +3,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UseFormReturn } from "react-hook-form";
 import { ListingFormValues } from "@/types/forms";
+import { VeiculoType } from "@/types/listings";
 
-const veiculoTypes = [
+const veiculoTypes: { value: VeiculoType; label: string }[] = [
   { value: "carro", label: "Carro" },
   { value: "moto", label: "Moto" },
   { value: "caminhao", label: "Caminhão" },
@@ -101,7 +102,7 @@ export const VeiculoFields = ({ form }: VeiculoFieldsProps) => {
             <FormControl>
               <Input 
                 type="number" 
-                {...field} 
+                {...field}
                 onChange={e => field.onChange(Number(e.target.value))}
                 value={field.value || ''} 
               />
@@ -120,7 +121,7 @@ export const VeiculoFields = ({ form }: VeiculoFieldsProps) => {
             <FormControl>
               <Input 
                 type="number" 
-                {...field} 
+                {...field}
                 onChange={e => field.onChange(Number(e.target.value))}
                 value={field.value || ''} 
               />

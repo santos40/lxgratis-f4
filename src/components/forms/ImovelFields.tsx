@@ -3,8 +3,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UseFormReturn } from "react-hook-form";
 import { ListingFormValues } from "@/types/forms";
+import { ImovelType } from "@/types/listings";
 
-const imovelTypes = [
+const imovelTypes: { value: ImovelType; label: string }[] = [
   { value: "casa", label: "Casa" },
   { value: "apartamento", label: "Apartamento" },
   { value: "terreno", label: "Terreno" },
@@ -52,7 +53,7 @@ export const ImovelFields = ({ form }: ImovelFieldsProps) => {
             <FormControl>
               <Input 
                 type="number" 
-                {...field} 
+                {...field}
                 onChange={e => field.onChange(Number(e.target.value))}
                 value={field.value || ''} 
               />
@@ -71,7 +72,7 @@ export const ImovelFields = ({ form }: ImovelFieldsProps) => {
             <FormControl>
               <Input 
                 type="number" 
-                {...field} 
+                {...field}
                 onChange={e => field.onChange(Number(e.target.value))}
                 value={field.value || ''} 
               />
