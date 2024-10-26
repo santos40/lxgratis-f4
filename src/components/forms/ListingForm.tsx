@@ -21,38 +21,36 @@ const baseSchema = {
   price: z.number().min(0),
   description: z.string(),
   location: z.string(),
+  category: z.enum(["imovel", "veiculo", "outros"] as const),
 };
 
-const listingFormSchema = z.discriminatedUnion("category", [
-  z.object({
-    ...baseSchema,
-    category: z.literal("imovel"),
-    imovelType: z.enum(["casa", "apartamento", "terreno", "chacara"]),
-    area: z.number(),
-    bedrooms: z.number().optional(),
-  }),
-  z.object({
-    ...baseSchema,
-    category: z.literal("veiculo"),
-    veiculoType: z.enum(["carro", "moto", "caminhao"]),
-    brand: z.string(),
-    model: z.string(),
-    year: z.number(),
-    mileage: z.number(),
-  }),
-  z.object({
-    ...baseSchema,
-    category: z.literal("outros"),
-  }),
-]);
+const imovelSchema = z.object({
+  ...baseSchema,
+  imovelType: z.enum(["casa", "apartamento", "terreno", "chacara"]),
+  area: z.number(),
+  bedrooms: z.number().optional(),
+});
 
-export type ListingFormValues = z.infer<typeof listingFormSchema>;
+const veiculoSchema = z.object({
+  ...baseSchema,
+  veiculoType: z.enum(["carro", "moto", "caminhao"]),
+  brand: z.string(),
+  model: z.string(),
+  year: z.number(),
+  mileage: z.number(),
+});
+
+const outrosSchema = z.object({
+  ...baseSchema,
+});
+
+export type ListingFormValues = z.infer<typeof imovelSchema> | z.infer<typeof veiculoSchema> | z.infer<typeof outrosSchema>;
 
 const ListingForm = () => {
   const [category, setCategory] = useState<ListingCategory>("outros");
 
   const form = useForm<ListingFormValues>({
-    resolver: zodResolver(listingFormSchema),
+    resolver: zodResolver(category === "imovel" ? imovelSchema : category === "veiculo" ? veiculoSchema : outrosSchema),
     defaultValues: {
       category: "outros",
       title: "",
