@@ -2,7 +2,7 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UseFormReturn } from "react-hook-form";
-import { ListingFormValues } from "./ListingForm";
+import { ImovelFormValues } from "@/types/forms";
 
 const imovelTypes = [
   { value: "casa", label: "Casa" },
@@ -12,7 +12,7 @@ const imovelTypes = [
 ];
 
 interface ImovelFieldsProps {
-  form: UseFormReturn<ListingFormValues>;
+  form: UseFormReturn<ImovelFormValues>;
 }
 
 export const ImovelFields = ({ form }: ImovelFieldsProps) => {

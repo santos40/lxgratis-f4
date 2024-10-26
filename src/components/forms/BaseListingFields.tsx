@@ -2,7 +2,7 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { UseFormReturn } from "react-hook-form";
-import { ListingFormValues } from "./ListingForm";
+import { ListingFormValues } from "@/types/forms";
 
 interface BaseListingFieldsProps {
   form: UseFormReturn<ListingFormValues>;
@@ -32,7 +32,11 @@ export const BaseListingFields = ({ form }: BaseListingFieldsProps) => {
           <FormItem>
             <FormLabel>Preço</FormLabel>
             <FormControl>
-              <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+              <Input 
+                type="number" 
+                {...field} 
+                onChange={e => field.onChange(Number(e.target.value))} 
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

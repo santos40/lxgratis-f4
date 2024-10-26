@@ -1,56 +1,26 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ListingCategory } from "@/types/listings";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select";
-import { BaseListingFields } from "./BaseListingFields";
+import { ListingCategory } from "@/types/listings";
 import { ImovelFields } from "./ImovelFields";
 import { VeiculoFields } from "./VeiculoFields";
-
-const baseSchema = {
-  title: z.string().min(1),
-  price: z.number().min(0),
-  description: z.string(),
-  location: z.string(),
-  category: z.enum(["imovel", "veiculo", "outros"] as const),
-};
-
-const imovelSchema = z.object({
-  ...baseSchema,
-  imovelType: z.enum(["casa", "apartamento", "terreno", "chacara"]),
-  area: z.number(),
-  bedrooms: z.number().optional(),
-});
-
-const veiculoSchema = z.object({
-  ...baseSchema,
-  veiculoType: z.enum(["carro", "moto", "caminhao"]),
-  brand: z.string(),
-  model: z.string(),
-  year: z.number(),
-  mileage: z.number(),
-});
-
-const outrosSchema = z.object({
-  ...baseSchema,
-});
-
-export type ListingFormValues = z.infer<typeof imovelSchema> | z.infer<typeof veiculoSchema> | z.infer<typeof outrosSchema>;
+import { BaseListingFields } from "./BaseListingFields";
+import { CategorySelect } from "./CategorySelect";
+import { imovelSchema, veiculoSchema, outrosSchema, ListingFormValues } from "@/types/forms";
 
 const ListingForm = () => {
   const [category, setCategory] = useState<ListingCategory>("outros");
 
   const form = useForm<ListingFormValues>({
-    resolver: zodResolver(category === "imovel" ? imovelSchema : category === "veiculo" ? veiculoSchema : outrosSchema),
+    resolver: zodResolver(
+      category === "imovel" 
+        ? imovelSchema 
+        : category === "veiculo" 
+          ? veiculoSchema 
+          : outrosSchema
+    ),
     defaultValues: {
       category: "outros",
       title: "",
@@ -64,32 +34,22 @@ const ListingForm = () => {
     console.log(data);
   };
 
+  const handleCategoryChange = (newCategory: ListingCategory) => {
+    form.reset({
+      category: newCategory,
+      title: "",
+      price: 0,
+      description: "",
+      location: "",
+    });
+    setCategory(newCategory);
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <Select
-          onValueChange={(value: ListingCategory) => {
-            form.reset({ 
-              category: value,
-              title: "",
-              price: 0,
-              description: "",
-              location: "",
-            });
-            setCategory(value);
-          }}
-          value={category}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Selecione uma categoria" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="imovel">Imóvel</SelectItem>
-            <SelectItem value="veiculo">Veículo</SelectItem>
-            <SelectItem value="outros">Outros</SelectItem>
-          </SelectContent>
-        </Select>
-
+        <CategorySelect value={category} onValueChange={handleCategoryChange} />
+        
         {category === "imovel" && <ImovelFields form={form} />}
         {category === "veiculo" && <VeiculoFields form={form} />}
         
