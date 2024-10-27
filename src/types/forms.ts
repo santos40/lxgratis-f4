@@ -35,7 +35,4 @@ export const listingSchema = z.discriminatedUnion("category", [
   outrosSchema,
 ]);
 
-export type ImovelFormValues = z.infer<typeof imovelSchema>;
-export type VeiculoFormValues = z.infer<typeof veiculoSchema>;
-export type OutrosFormValues = z.infer<typeof outrosSchema>;
 export type ListingFormValues = z.infer<typeof listingSchema>;
