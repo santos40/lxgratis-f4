@@ -1,4 +1,5 @@
 import { Search, Menu, Bell, User } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -8,10 +9,10 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <span className="text-2xl font-bold text-primary">LX</span>
               <span className="text-2xl font-bold text-secondary">Grátis</span>
-            </a>
+            </Link>
           </div>
 
           <div className="hidden md:flex flex-1 max-w-2xl mx-8">
@@ -29,10 +30,14 @@ const Navbar = () => {
             <Button variant="ghost" size="icon">
               <Bell className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-            </Button>
-            <Button className="hidden md:flex">Anunciar</Button>
+            <Link to="/perfil">
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/criar-anuncio">
+              <Button className="hidden md:flex">Anunciar</Button>
+            </Link>
             <Button variant="ghost" size="icon" className="md:hidden">
               <Menu className="h-5 w-5" />
             </Button>
