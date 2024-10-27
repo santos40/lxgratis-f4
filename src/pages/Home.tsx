@@ -20,7 +20,7 @@ const mockProducts: Listing[] = [
     title: "Apartamento 2 quartos - Centro",
     price: 350000,
     location: "Rio de Janeiro, RJ",
-    description: "Apartamento bem localizado no centro da cidade.",
+    description: "Apartamento bem localizado no centro da cidade",
     category: "imovel",
     type: "apartamento",
     area: 75,
@@ -34,7 +34,7 @@ const mockProducts: Listing[] = [
     title: "Honda Civic EXL 2022",
     price: 140000,
     location: "Curitiba, PR",
-    description: "Carro em excelente estado, com baixa quilometragem.",
+    description: "Carro em excelente estado, baixa quilometragem",
     category: "veiculo",
     type: "carro",
     brand: "Honda",
@@ -49,17 +49,34 @@ const mockProducts: Listing[] = [
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-accent">
+    <div className="min-h-screen bg-background">
       <Navbar />
       <Categories />
       
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-6">Anúncios em destaque</h1>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {mockProducts.map((product) => (
-            <ProductCard key={product.id} listing={product} />
-          ))}
+        <div className="space-y-8">
+          <section>
+            <h1 className="text-3xl font-bold mb-6">Anúncios em destaque</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {mockProducts.map((product) => (
+                <ProductCard key={product.id} listing={product} />
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold mb-6">Categorias populares</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {["Veículos", "Imóveis", "Eletrônicos", "Móveis"].map((category) => (
+                <div 
+                  key={category}
+                  className="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow"
+                >
+                  <h3 className="font-semibold">{category}</h3>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
       </main>
     </div>
