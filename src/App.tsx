@@ -8,6 +8,8 @@ import ProductDetails from "./pages/ProductDetails";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/admin/Dashboard";
 import Users from "./pages/admin/Users";
+import Listings from "./pages/admin/Listings";
+import Settings from "./pages/admin/Settings";
 import CreateListing from "./pages/CreateListing";
 
 const queryClient = new QueryClient();
@@ -25,7 +27,8 @@ const App = () => (
           <Route path="/criar-anuncio" element={<CreateListing />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/usuarios" element={<Users />} />
-          {/* Catch all route - redirect to home */}
+          <Route path="/admin/anuncios" element={<Listings />} />
+          <Route path="/admin/configuracoes" element={<Settings />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
