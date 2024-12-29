@@ -48,6 +48,51 @@ const mockProducts: Listing[] = [
   }
 ];
 
+const mockRealEstateListings: Listing[] = [
+  {
+    id: "4",
+    title: "Apartamento Luxuoso - 3 Quartos",
+    price: 850000,
+    location: "São Paulo, SP",
+    description: "Apartamento de alto padrão com vista panorâmica",
+    category: "imovel",
+    type: "apartamento",
+    area: 120,
+    bedrooms: 3,
+    createdAt: new Date().toISOString(),
+    userId: "4",
+    images: ["https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500"],
+  },
+  {
+    id: "5",
+    title: "Casa em Condomínio Fechado",
+    price: 1200000,
+    location: "Rio de Janeiro, RJ",
+    description: "Casa moderna em condomínio de luxo",
+    category: "imovel",
+    type: "casa",
+    area: 250,
+    bedrooms: 4,
+    createdAt: new Date().toISOString(),
+    userId: "5",
+    images: ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500"],
+  },
+  {
+    id: "6",
+    title: "Cobertura Duplex",
+    price: 1500000,
+    location: "Belo Horizonte, MG",
+    description: "Cobertura com piscina privativa",
+    category: "imovel",
+    type: "apartamento",
+    area: 180,
+    bedrooms: 3,
+    createdAt: new Date().toISOString(),
+    userId: "6",
+    images: ["https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=500"],
+  }
+];
+
 const Home = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -56,12 +101,26 @@ const Home = () => {
       <BrazilianStates />
       
       <main className="container mx-auto px-4 py-8">
-        <div className="space-y-8">
+        <div className="space-y-12">
           <section>
             <h1 className="text-3xl font-bold mb-6">Anúncios em destaque</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {mockProducts.map((product) => (
                 <ProductCard key={product.id} listing={product} />
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-primary">Imóveis de Imobiliárias</h2>
+              <a href="/categoria/imovel" className="text-primary hover:underline">
+                Ver todos
+              </a>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {mockRealEstateListings.map((listing) => (
+                <ProductCard key={listing.id} listing={listing} />
               ))}
             </div>
           </section>
