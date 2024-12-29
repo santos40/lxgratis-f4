@@ -1,7 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Categories from "@/components/Categories";
-import ProductCard from "@/components/ProductCard";
 import BrazilianStates from "@/components/BrazilianStates";
+import SearchFilters from "@/components/SearchFilters";
+import FeaturedListings from "@/components/sections/FeaturedListings";
+import VerifiedListings from "@/components/sections/VerifiedListings";
+import PopularCategories from "@/components/sections/PopularCategories";
 import { Listing } from "@/types/listings";
 
 const mockProducts: Listing[] = [
@@ -150,65 +153,25 @@ const Home = () => {
       <Navbar />
       <Categories />
       <BrazilianStates />
+      <SearchFilters />
       
       <main className="container mx-auto px-4 py-8">
         <div className="space-y-12">
-          <section>
-            <h1 className="text-3xl font-bold mb-6">Anúncios em destaque</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {mockProducts.map((product) => (
-                <ProductCard key={product.id} listing={product} />
-              ))}
-            </div>
-          </section>
+          <FeaturedListings listings={mockProducts} />
+          
+          <VerifiedListings
+            title="Imóveis de Imobiliárias"
+            category="imovel"
+            listings={mockRealEstateListings}
+          />
 
-          <section className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <h2 className="text-2xl font-bold text-primary">Imóveis de Imobiliárias</h2>
-                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Verificados</span>
-              </div>
-              <a href="/categoria/imovel" className="text-primary hover:underline">
-                Ver todos
-              </a>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {mockRealEstateListings.map((listing) => (
-                <ProductCard key={listing.id} listing={listing} />
-              ))}
-            </div>
-          </section>
+          <VerifiedListings
+            title="Veículos de Garagens"
+            category="veiculo"
+            listings={mockVerifiedVehicles}
+          />
 
-          <section className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <h2 className="text-2xl font-bold text-primary">Veículos de Garagens</h2>
-                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Verificados</span>
-              </div>
-              <a href="/categoria/veiculo" className="text-primary hover:underline">
-                Ver todos
-              </a>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {mockVerifiedVehicles.map((listing) => (
-                <ProductCard key={listing.id} listing={listing} />
-              ))}
-            </div>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Categorias populares</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {["Veículos", "Imóveis", "Eletrônicos", "Móveis"].map((category) => (
-                <div 
-                  key={category}
-                  className="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow"
-                >
-                  <h3 className="font-semibold">{category}</h3>
-                </div>
-              ))}
-            </div>
-          </section>
+          <PopularCategories />
         </div>
       </main>
     </div>
