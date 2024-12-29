@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Categories from "@/components/Categories";
 import ProductCard from "@/components/ProductCard";
+import BrazilianStates from "@/components/BrazilianStates";
 import { Listing } from "@/types/listings";
 
 const mockProducts: Listing[] = [
@@ -52,6 +53,7 @@ const Home = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <Categories />
+      <BrazilianStates />
       
       <main className="container mx-auto px-4 py-8">
         <div className="space-y-8">
