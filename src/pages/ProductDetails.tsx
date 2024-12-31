@@ -5,6 +5,8 @@ import { Card } from "@/components/ui/card";
 import { Heart, Share2, MapPin, Calendar, Facebook, Instagram, Flag, ThumbsUp, ThumbsDown } from "lucide-react";
 import UserRating from "@/components/UserRating";
 import { useToast } from "@/components/ui/use-toast";
+import ReviewForm from "@/components/ReviewForm";
+import ReviewsList from "@/components/ReviewsList";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -38,6 +40,26 @@ const ProductDetails = () => {
     ],
   };
 
+  // Mock reviews data
+  const reviews = [
+    {
+      id: "1",
+      userId: "2",
+      userName: "Maria Santos",
+      rating: 5,
+      comment: "Ótimo vendedor! Produto chegou conforme descrito.",
+      date: "2024-02-15",
+    },
+    {
+      id: "2",
+      userId: "3",
+      userName: "Pedro Oliveira",
+      rating: 4,
+      comment: "Comunicação rápida e eficiente.",
+      date: "2024-02-10",
+    },
+  ];
+
   const handleSellerClick = () => {
     navigate(`/profile/${product.seller.id}`);
   };
@@ -47,6 +69,14 @@ const ProductDetails = () => {
       title: "Denúncia registrada",
       description: "Nossa equipe irá analisar sua denúncia em breve.",
     });
+  };
+
+  const handleReviewSubmit = (rating: number, comment: string) => {
+    toast({
+      title: "Avaliação enviada",
+      description: "Obrigado por compartilhar sua experiência!",
+    });
+    // Here you would typically send the review to your backend
   };
 
   return (
@@ -182,6 +212,15 @@ const ProductDetails = () => {
                   </div>
                   <p className="text-sm text-primary mt-2 hover:underline">Ver mais anúncios deste vendedor →</p>
                 </div>
+              </div>
+            </Card>
+
+            {/* Reviews Section */}
+            <Card className="p-6">
+              <h2 className="text-lg font-semibold mb-6">Avaliações</h2>
+              <div className="space-y-6">
+                <ReviewForm onSubmit={handleReviewSubmit} />
+                <ReviewsList reviews={reviews} />
               </div>
             </Card>
           </div>
