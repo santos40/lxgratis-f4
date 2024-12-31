@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -6,6 +6,7 @@ import { Heart, Share2, MapPin, Calendar } from "lucide-react";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // Mock product data
   const product = {
@@ -14,11 +15,19 @@ const ProductDetails = () => {
     description: "iPhone 13 Pro Max em perfeito estado, com garantia até 2024. Acompanha todos os acessórios originais.",
     location: "São Paulo, SP",
     date: "Publicado em 20/02/2024",
-    seller: "João Silva",
+    seller: {
+      id: "1",
+      name: "João Silva",
+      joinDate: "2023"
+    },
     images: [
       "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500",
       "https://images.unsplash.com/photo-1632661675197-99701c9b414c?w=500",
     ],
+  };
+
+  const handleSellerClick = () => {
+    navigate(`/profile/${product.seller.id}`);
   };
 
   return (
@@ -84,13 +93,17 @@ const ProductDetails = () => {
 
             <Card className="p-6">
               <h2 className="text-lg font-semibold mb-4">Vendedor</h2>
-              <div className="flex items-center gap-4">
+              <div 
+                className="flex items-center gap-4 cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors"
+                onClick={handleSellerClick}
+              >
                 <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
-                  <span className="text-xl font-semibold">{product.seller[0]}</span>
+                  <span className="text-xl font-semibold">{product.seller.name[0]}</span>
                 </div>
                 <div>
-                  <p className="font-semibold">{product.seller}</p>
-                  <p className="text-sm text-muted-foreground">Membro desde 2023</p>
+                  <p className="font-semibold text-primary hover:underline">{product.seller.name}</p>
+                  <p className="text-sm text-muted-foreground">Membro desde {product.seller.joinDate}</p>
+                  <p className="text-sm text-primary mt-1 hover:underline">Ver mais anúncios deste vendedor →</p>
                 </div>
               </div>
             </Card>
