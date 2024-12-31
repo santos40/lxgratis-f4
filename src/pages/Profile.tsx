@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProductCard from "@/components/ProductCard";
+import UserRating from "@/components/UserRating";
+import ReviewsList from "@/components/ReviewsList";
 import { Settings, LogOut } from "lucide-react";
 import { Listing } from "@/types/listings";
 
@@ -11,6 +13,8 @@ const mockUser = {
   email: "joao@example.com",
   memberSince: "Janeiro 2023",
   location: "São Paulo, SP",
+  rating: 4.5,
+  totalReviews: 12,
 };
 
 const mockListings: Listing[] = [
@@ -26,6 +30,25 @@ const mockListings: Listing[] = [
     images: ["https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500"],
   },
   // Add more mock listings as needed
+];
+
+const mockReviews = [
+  {
+    id: "1",
+    userId: "2",
+    userName: "Maria Santos",
+    rating: 5,
+    comment: "Ótimo vendedor! Muito atencioso e produto conforme descrito.",
+    date: "2024-02-20",
+  },
+  {
+    id: "2",
+    userId: "3",
+    userName: "Pedro Costa",
+    rating: 4,
+    comment: "Boa comunicação e entrega rápida.",
+    date: "2024-02-15",
+  },
 ];
 
 const Profile = () => {
@@ -44,6 +67,9 @@ const Profile = () => {
                 </span>
               </div>
               <h2 className="text-xl font-bold mb-1">{mockUser.name}</h2>
+              <div className="mb-2">
+                <UserRating rating={mockUser.rating} totalReviews={mockUser.totalReviews} />
+              </div>
               <p className="text-sm text-muted-foreground mb-4">
                 Membro desde {mockUser.memberSince}
               </p>
@@ -70,6 +96,9 @@ const Profile = () => {
                 <TabsTrigger value="favorites" className="flex-1">
                   Favoritos
                 </TabsTrigger>
+                <TabsTrigger value="reviews" className="flex-1">
+                  Avaliações
+                </TabsTrigger>
               </TabsList>
               
               <TabsContent value="listings" className="mt-6">
@@ -84,6 +113,10 @@ const Profile = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {/* Add favorite listings here */}
                 </div>
+              </TabsContent>
+
+              <TabsContent value="reviews" className="mt-6">
+                <ReviewsList reviews={mockReviews} />
               </TabsContent>
             </Tabs>
           </div>
