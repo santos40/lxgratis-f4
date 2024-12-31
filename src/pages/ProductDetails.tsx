@@ -2,11 +2,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Heart, Share2, MapPin, Calendar } from "lucide-react";
+import { Heart, Share2, MapPin, Calendar, Facebook, Instagram, Flag, ThumbsUp, ThumbsDown } from "lucide-react";
+import UserRating from "@/components/UserRating";
+import { useToast } from "@/components/ui/use-toast";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   // Mock product data
   const product = {
@@ -18,7 +21,16 @@ const ProductDetails = () => {
     seller: {
       id: "1",
       name: "João Silva",
-      joinDate: "2023"
+      joinDate: "2023",
+      rating: 4.5,
+      totalReviews: 28,
+      trustScore: 95,
+      likes: 45,
+      dislikes: 2,
+      social: {
+        facebook: "joaosilva",
+        instagram: "joao.silva"
+      }
     },
     images: [
       "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500",
@@ -28,6 +40,13 @@ const ProductDetails = () => {
 
   const handleSellerClick = () => {
     navigate(`/profile/${product.seller.id}`);
+  };
+
+  const handleReport = () => {
+    toast({
+      title: "Denúncia registrada",
+      description: "Nossa equipe irá analisar sua denúncia em breve.",
+    });
   };
 
   return (
@@ -92,7 +111,19 @@ const ProductDetails = () => {
             </Card>
 
             <Card className="p-6">
-              <h2 className="text-lg font-semibold mb-4">Vendedor</h2>
+              <div className="flex justify-between items-start mb-4">
+                <h2 className="text-lg font-semibold">Vendedor</h2>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={handleReport}
+                  className="text-destructive hover:text-destructive"
+                >
+                  <Flag className="h-4 w-4 mr-1" />
+                  Denunciar
+                </Button>
+              </div>
+              
               <div 
                 className="flex items-center gap-4 cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors"
                 onClick={handleSellerClick}
@@ -100,10 +131,56 @@ const ProductDetails = () => {
                 <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
                   <span className="text-xl font-semibold">{product.seller.name[0]}</span>
                 </div>
-                <div>
-                  <p className="font-semibold text-primary hover:underline">{product.seller.name}</p>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold text-primary hover:underline">{product.seller.name}</p>
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <ThumbsUp className="h-4 w-4 text-green-500" />
+                      <span>{product.seller.likes}</span>
+                      <ThumbsDown className="h-4 w-4 ml-2 text-red-500" />
+                      <span>{product.seller.dislikes}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <UserRating rating={product.seller.rating} totalReviews={product.seller.totalReviews} />
+                  </div>
                   <p className="text-sm text-muted-foreground">Membro desde {product.seller.joinDate}</p>
-                  <p className="text-sm text-primary mt-1 hover:underline">Ver mais anúncios deste vendedor →</p>
+                  <div className="flex items-center gap-4 mt-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">Índice de Confiabilidade:</span>
+                      <span className={`text-sm font-semibold ${
+                        product.seller.trustScore >= 90 ? 'text-green-500' :
+                        product.seller.trustScore >= 70 ? 'text-yellow-500' : 'text-red-500'
+                      }`}>
+                        {product.seller.trustScore}%
+                      </span>
+                    </div>
+                    <div className="flex gap-2">
+                      {product.seller.social.facebook && (
+                        <a 
+                          href={`https://facebook.com/${product.seller.social.facebook}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Facebook className="h-4 w-4" />
+                        </a>
+                      )}
+                      {product.seller.social.instagram && (
+                        <a 
+                          href={`https://instagram.com/${product.seller.social.instagram}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-pink-600 hover:text-pink-800"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Instagram className="h-4 w-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-sm text-primary mt-2 hover:underline">Ver mais anúncios deste vendedor →</p>
                 </div>
               </div>
             </Card>
