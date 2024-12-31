@@ -1,12 +1,15 @@
 import { Card } from "./ui/card";
 import { Heart } from "lucide-react";
 import { Listing, ImovelListing, VeiculoListing } from "@/types/listings";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   listing: Listing;
 }
 
 const ProductCard = ({ listing }: ProductCardProps) => {
+  const navigate = useNavigate();
+
   const renderDetails = () => {
     if (listing.category === "imovel") {
       const imovelListing = listing as ImovelListing;
@@ -35,15 +38,30 @@ const ProductCard = ({ listing }: ProductCardProps) => {
     return null;
   };
 
+  const handleCardClick = () => {
+    navigate(`/produto/${listing.id}`);
+  };
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card click when clicking favorite button
+    // Favorite functionality can be implemented here
+  };
+
   return (
-    <Card className="group cursor-pointer overflow-hidden bg-white hover:shadow-lg transition-all duration-300">
+    <Card 
+      onClick={handleCardClick}
+      className="group cursor-pointer overflow-hidden bg-white hover:shadow-lg transition-all duration-300"
+    >
       <div className="relative aspect-square">
         <img
           src={listing.images[0]}
           alt={listing.title}
           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
         />
-        <button className="absolute top-2 right-2 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white hover:text-primary transition-colors">
+        <button 
+          onClick={handleFavoriteClick}
+          className="absolute top-2 right-2 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white hover:text-primary transition-colors"
+        >
           <Heart className="h-5 w-5" />
         </button>
       </div>
